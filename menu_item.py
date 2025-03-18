@@ -5,4 +5,4 @@ class MenuItem:
         self.weight = weight
 
     def __str__(self):
-        return f"{self.name} - {self.price} рублей. {self.weight} граммы"
+        return f"{self.name} - {self.price} руб. ({self.weight} г)"

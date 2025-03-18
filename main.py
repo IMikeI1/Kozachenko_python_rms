@@ -1,12 +1,14 @@
 from order_manager import OrderManager
 
-def manager_menu():
-    print("\nУправлениями заказами кафе")
+
+def display_menu():
+    print("\nУправление заказами кафе")
     print("1. Создать новый заказ")
     print("2. Просмотреть все заказы")
     print("3. Просмотреть заказ")
     print("4. Удалить заказ")
     print("5. Выход")
+
 
 def create_order(manager: OrderManager):
     order = manager.create_order()
@@ -14,8 +16,7 @@ def create_order(manager: OrderManager):
         print("\nДоступные позиции меню:")
         for i, item in enumerate(manager.menu_items, 1):
             print(f"{i}. {item}")
-        print("0. Завершение заказа")
-
+        print("0. Завершить заказ")
 
         choice = input("Выберите позицию (0-4): ")
         if choice == "0":
@@ -30,9 +31,11 @@ def create_order(manager: OrderManager):
         except ValueError:
             print("Пожалуйста, введите число")
 
+
 def main():
     manager = OrderManager()
     manager.load_orders_from_csv("orders.csv")
+
     while True:
         display_menu()
         choice = input("Выберите действие (1-5): ")
@@ -43,22 +46,23 @@ def main():
             manager.view_orders()
         elif choice == "3":
             try:
-                order_id = int(input("Введите номер заказа" ))
-                manager.view_orders(order_id)
+                order_id = int(input("Введите номер заказа: "))
+                manager.view_order(order_id)
             except ValueError:
                 print("Пожалуйста, введите число")
         elif choice == "4":
             try:
-                order_id = int(input("введите номер заказа для удаления: "))
+                order_id = int(input("Введите номер заказа для удаления: "))
                 manager.delete_order(order_id)
             except ValueError:
                 print("Пожалуйста, введите число")
         elif choice == "5":
             manager.save_orders_to_csv("orders.csv")
-            print("Данные сохранены. До свидание!")
+            print("Данные сохранены. До свидания!")
             break
         else:
-            print("Неверный выбор. пожалуйста выберите от 1 до 5")
+            print("Неверный выбор. Пожалуйста, выберите от 1 до 5")
+
 
 if __name__ == "__main__":
     main()
